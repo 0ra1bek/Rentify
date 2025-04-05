@@ -22,7 +22,7 @@
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
             width: 350px;
             text-align: center;
         }
@@ -59,17 +59,34 @@
         .login-link:hover {
             text-decoration: underline;
         }
+        .errorlist {
+            color: red;
+            margin-bottom: 15px;
+            list-style: none;
+        }
     </style>
 </head>
-<body style="background-image: url('https:storage.googleapis.com/bd-kz-01/buildings-v2/2560x1920/36742.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+<body style="background-image: url('https://storage.googleapis.com/bd-kz-01/buildings-v2/2560x1920/36742.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
     <div class="register-container">
         <h2>Регистрация</h2>
-        <input type="text" placeholder="Имя">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Пароль">
-        <input type="password" placeholder="Повторите пароль">
-        <button class="register-button" onclick="window.location.href='/main/'">Зарегистрироваться</button>
-        <a href="auth/" class="login-link">Уже есть аккаунт? Войти</a>
+        
+        {% if messages %}
+            <ul class="errorlist">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form method="post" action="{% url 'aauth:register' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Имя пользователя" required>
+            <input type="password" name="password1" placeholder="Пароль" required>
+            <input type="password" name="password2" placeholder="Повторите пароль" required>
+            <button type="submit" class="register-button">Зарегистрироваться</button>
+        </form>
+        
+        <a href="{% url 'aauth:login' %}" class="login-link">Уже есть аккаунт? Войти</a>
     </div>
 </body>
 </html>

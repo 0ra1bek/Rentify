@@ -59,15 +59,33 @@
         .register-link:hover {
             text-decoration: underline;
         }
+        .errorlist {
+            color: red;
+            margin-bottom: 15px;
+            list-style: none;
+        }
     </style>
 </head>
-<body style="background-image: url('https:storage.googleapis.com/bd-kz-01/buildings-v2/2560x1920/36742.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+<body style="background-image: url('https://storage.googleapis.com/bd-kz-01/buildings-v2/2560x1920/36742.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
     <div class="profile-container">
         <h2>Вход в систему</h2>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Пароль">
-        <button class="profile-button" onclick="window.location.href='/main/'">Войти</button>
-        <a href="#" class="register-link" onclick="window.location.href='/reg/'">Зарегистрироваться</a>
+        
+        {% if messages %}
+            <ul class="errorlist">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form method="post" action="{% url 'aauth:login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Имя пользователя" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+            <button type="submit" class="profile-button">Войти</button>
+        </form>
+        
+        <a href="{% url 'aauth:register' %}" class="register-link">Зарегистрироваться</a>
     </div>
 </body>
 </html>

@@ -269,19 +269,10 @@
     <header>
         <div class="LOGO">LOGO</div>
         <div class="user-actions">
-            <a href="pass.html" class="action-btn">
-                <i class="fas fa-paper-plane"></i>
-                <span>Подать</span>
+            <a href="main.html" class="action-btn">
+                <i class="fas fa-home"></i>
+                <span>Главная</span>
             </a>
-            <a href="like.html" class="action-btn">
-                <i class="fas fa-heart"></i>
-                <span>Избранное</span>
-            </a>
-            <a href="profile.html" class="action-btn">
-                <i class="fas fa-user"></i>
-                <span>Профиль</span>
-            </a>
-        </div>
     </header>
     
     <div class="main-container">
@@ -307,7 +298,7 @@
         </div>
         
         <form id="advertisement-form">
-             Шаг 1: Информация -->
+            <!-- Шаг 1: Информация -->
             <div class="form-card active" data-step="1">
                 <h2>Основная информация</h2>
                 
@@ -355,7 +346,7 @@
                 </div>
             </div>
             
-             Шаг 2: Фотографии -->
+            <!-- Шаг 2: Фотографии -->
             <div class="form-card" data-step="2">
                 <h2>Фотографии</h2>
                 
@@ -374,7 +365,7 @@
                 </div>
             </div>
             
-             Шаг 3: Контакты -->
+            <!-- Шаг 3: Контакты -->
             <div class="form-card" data-step="3">
                 <h2>Контактная информация</h2>
                 
@@ -399,7 +390,7 @@
                 </div>
             </div>
             
-             Шаг 4: Публикация -->
+            <!-- Шаг 4: Публикация -->
             <div class="form-card" data-step="4">
                 <h2>Проверьте информацию</h2>
                 
@@ -431,7 +422,7 @@
     </footer>
     
     <script>
-         Навигация по шагам
+        // Навигация по шагам
         const steps = document.querySelectorAll('.step');
         const formCards = document.querySelectorAll('.form-card');
         
@@ -440,12 +431,12 @@
                 const currentCard = btn.closest('.form-card');
                 const currentStep = parseInt(currentCard.dataset.step);
                 
-                 Валидация формы перед переходом
+                // Валидация формы перед переходом
                 if (validateStep(currentStep)) {
-                     Переходим к следующему шагу
+                    // Переходим к следующему шагу
                     goToStep(currentStep + 1);
                     
-                     Если это последний шаг, заполняем обзор
+                    // Если это последний шаг, заполняем обзор
                     if (currentStep === 3) {
                         fillReview();
                     }
@@ -462,7 +453,7 @@
         });
         
         function goToStep(stepNumber) {
-             Обновляем шаги
+            // Обновляем шаги
             steps.forEach(step => {
                 const stepNum = parseInt(step.dataset.step);
                 
@@ -475,7 +466,7 @@
                 }
             });
             
-             Показываем соответствующий шаг формы
+            // Показываем соответствующий шаг формы
             formCards.forEach(card => {
                 card.classList.remove('active');
                 if (parseInt(card.dataset.step) === stepNumber) {
@@ -485,7 +476,7 @@
         }
         
         function validateStep(step) {
-             Простая валидация - проверяем, что обязательные поля заполнены
+            // Простая валидация - проверяем, что обязательные поля заполнены
             let isValid = true;
             const currentCard = document.querySelector(`.form-card[data-step="${step}"]`);
             
@@ -506,7 +497,7 @@
         }
         
         function fillReview() {
-             Заполняем раздел "Проверьте информацию"
+            // Заполняем раздел "Проверьте информацию"
             document.getElementById('review-type').textContent = `Тип: ${document.getElementById('property-type').options[document.getElementById('property-type').selectedIndex].text}`;
             document.getElementById('review-rooms').textContent = `Комнат: ${document.getElementById('rooms').value}`;
             document.getElementById('review-area').textContent = `Площадь: ${document.getElementById('area').value} м²`;
@@ -515,14 +506,14 @@
             document.getElementById('review-contact-phone').textContent = `Телефон: ${document.getElementById('contact-phone').value}`;
         }
         
-         Обработка отправки формы
+        // Обработка отправки формы
         document.getElementById('advertisement-form').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Ваше объявление успешно опубликовано!');
-             Здесь можно добавить AJAX-запрос для отправки данных на сервер
+            // Здесь можно добавить AJAX-запрос для отправки данных на сервер
         });
         
-         Обработка загрузки файлов
+        // Обработка загрузки файлов
         document.querySelector('.file-upload').addEventListener('click', function() {
             this.querySelector('input').click();
         });

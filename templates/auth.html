@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация</title>
+    <title>Авторизация</title>
     <style>
         * {
             margin: 0;
@@ -18,11 +18,11 @@
             align-items: center;
             height: 100vh;
         }
-        .register-container {
+        .profile-container {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             width: 350px;
             text-align: center;
         }
@@ -37,7 +37,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .register-button {
+        .profile-button {
             width: 100%;
             padding: 10px;
             background-color: #2c3e50;
@@ -47,29 +47,27 @@
             cursor: pointer;
             font-size: 16px;
         }
-        .register-button:hover {
+        .profile-button:hover {
             background-color: #1a252f;
         }
-        .login-link {
+        .register-link {
             margin-top: 10px;
             display: block;
             color: #2c3e50;
             text-decoration: none;
         }
-        .login-link:hover {
+        .register-link:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body style="background-image: url('https://storage.googleapis.com/bd-kz-01/buildings-v2/2560x1920/36742.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
-    <div class="register-container">
-        <h2>Регистрация</h2>
-        <input type="text" placeholder="Имя">
+    <div class="profile-container">
+        <h2>Вход в систему</h2>
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Пароль">
-        <input type="password" placeholder="Повторите пароль">
-        <button class="register-button" onclick="window.location.href='main.html'">Зарегистрироваться</button>
-        <a href="profile.html" class="login-link">Уже есть аккаунт? Войти</a>
+        <button class="profile-button" onclick="window.location.href='main.html'">Войти</button>
+        <a href="#" class="register-link" onclick="window.location.href='reg.html'">Зарегистрироваться</a>
     </div>
 </body>
 </html>

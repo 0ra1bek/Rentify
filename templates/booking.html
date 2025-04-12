@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование квартиры | LOGO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #d9230f;
+            --bg-color: #f3f2ff;
+            --card-bg: #ffffff;
+            --text-color: #222;
+            --light-text: #666;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+        }
+        
+        .booking-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .apartment-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .apartment-info img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .booking-form {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--card-bg);
+        padding: 15px 5%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    
+    .LOGO {
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--primary-color);
+    }
+    
+    .user-actions {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        cursor: pointer;
+        color: var(--text-color);
+        text-decoration: none;
+    }
+    
+    .action-btn i {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    
+    .action-btn span {
+        font-size: 12px;
+        font-weight: 500;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="LOGO">LOGO</div>
+        <div class="user-actions">
+            <a href="main.html" class="action-btn">
+                <i class="fas fa-home"></i>
+                <span>Главная</span>
+            </a>
+        </div>
+    </header>
+    
+    <div class="booking-container">
+        <div class="apartment-info" id="apartment-info">
+            <!-- Данные будут заполнены скриптом -->
+        </div>
+        
+        <div class="booking-form">
+            <h2 class="mb-4">Данные для бронирования</h2>
+            <form id="bookingForm">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">ФИО</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Телефон</label>
+                        <input type="tel" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" required>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label">Дата заезда</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Дата выезда</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 py-2">Перейти к оплате</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем данные о бронировании
+            const bookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+            
+            if (!bookingData?.apartment) {
+                alert('Данные о квартире не найдены!');
+                window.location.href = 'payment.html';
+                return;
+            }
+            
+            const { apartment } = bookingData;
+            
+            // Заполняем информацию о квартире
+            document.getElementById('apartment-info').innerHTML = `
+                <img src="${apartment.image}" alt="${apartment.title}">
+                <div>
+                    <h3>${apartment.title}</h3>
+                    <p class="text-muted">${apartment.area} м² | ${apartment.rooms} комнаты | ${apartment.floor} этаж</p>
+                    <div class="h4 text-primary">${apartment.price}</div>
+                </div>
+            `;
+            
+            // Обработка формы бронирования
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Собираем данные клиента
+                const formData = new FormData(this);
+                const clientData = {
+                    name: formData.get('name'),
+                    phone: formData.get('phone'),
+                    email: formData.get('email'),
+                    checkIn: formData.get('checkIn'),
+                    checkOut: formData.get('checkOut')
+                };
+                
+                // Обновляем данные бронирования
+                const updatedBooking = {
+                    ...bookingData,
+                    client: clientData
+                };
+                
+                // Сохраняем для страницы оплаты
+                sessionStorage.setItem('bookingData', JSON.stringify(updatedBooking));
+                
+                // Переходим на оплату
+                window.location.href = 'payment.html';
+            });
+        });
+    </script>
+</body>
+</html>

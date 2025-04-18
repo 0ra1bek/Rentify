@@ -139,7 +139,7 @@
             
             if (!bookingData?.apartment || !bookingData?.client) {
                 alert('Данные бронирования не найдены!');
-                window.location.href = '/main/';
+                window.location.href = '/main1/';
                 return;
             }
             
@@ -190,7 +190,7 @@
                 sessionStorage.removeItem('bookingData');
                 
                 // Возвращаем на главную с параметром успешного бронирования
-                window.location.href = '/main/';
+                window.location.href = '/main1/';
             });
         });
     </script>

@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'main1',
+    'like',
+    'pass',
+    'pprofile',
     'payment',
     'booking',
     'main',
@@ -127,5 +131,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'main:index' 
-LOGOUT_REDIRECT_URL = 'main:index'  
+LOGIN_REDIRECT_URL = 'main1:index' 
+LOGOUT_REDIRECT_URL = 'main1:index'  

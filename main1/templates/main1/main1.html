@@ -328,17 +328,22 @@
     </style>
 </head>
 <body>
+    <!-- Главная страница с выбором квартир -->
     <div id="apartments-page">
         <header>
             <div class="LOGO"><a href="" style="text-decoration: none; color: inherit;">LOGO</a></div>
             <div class="user-actions">
-                <a href="/auth/" class="action-btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Войти</span>
+                <a href="/pass/" class="action-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Подать</span>
                 </a>
-                <a href="/reg/" class="action-btn">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Регистрация</span>
+                <a href="/like/" class="action-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Избранное</span>
+                </a>
+                <a href="/pprofile/" class="action-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Профиль</span>
                 </a>
             </div>
         </header>
@@ -765,23 +770,7 @@
             // Переходим на страницу бронирования
             window.location.href = '/booking/';}
 
-            function bookApartment(button) {
-                // Перенаправляем на страницу входа при попытке арендовать
-                window.location.href = '/auth/?next=/booking/';
-            }
             
-            function showApartmentDetails(e, apartmentId) {
-                // Перенаправляем на страницу входа при попытке посмотреть детали
-                window.location.href = '/auth/?next=' + encodeURIComponent(window.location.pathname + '?id=' + apartmentId);
-            }
-            
-            // Обработка кнопок избранного
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    window.location.href = '/auth/?next=' + encodeURIComponent(window.location.pathname);
-                });
-            });
     </script>
 </body>
 </html>

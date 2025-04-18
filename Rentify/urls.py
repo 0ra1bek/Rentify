@@ -5,6 +5,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')), 
+    path('main/', include('main.urls')),
     path('auth/', include('aauth.urls')), 
+    path('booking/', include('booking.urls')),
+    path('payment/', include('payment.urls')),
 ]
-

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата бронирования | LOGO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #d9230f;
+            --bg-color: #f3f2ff;
+            --card-bg: #ffffff;
+            --text-color: #222;
+            --light-text: #666;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+        }
+        
+        .payment-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .booking-summary {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .payment-form {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .payment-method {
+            display: none;
+        }
+        
+        .payment-method.active {
+            display: block;
+        }
+
+        .LOGO {
+        font-weight: 600;
+        font-size: 20px;
+        color: var(--primary-color);
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--card-bg);
+        padding: 15px 5%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="LOGO">LOGO</div>
+    </header>
+    
+    <div class="payment-container">
+        <div class="booking-summary">
+            <h2 class="mb-4">Детали бронирования</h2>
+            <div id="booking-details">
+                <!-- Данные будут заполнены скриптом -->
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+                <h4>Итого к оплате:</h4>
+                <h3 class="text-primary" id="total-price"></h3>
+            </div>
+        </div>
+        
+        <div class="payment-form">
+            <h2 class="mb-4">Способ оплаты</h2>
+            <form id="paymentForm">
+                <div class="mb-4">
+                    <select class="form-select" id="paymentMethod">
+                        <option value="card">Банковская карта</option>
+                        <option value="cash">Наличные при встрече</option>
+                    </select>
+                </div>
+                
+                <!-- Банковская карта -->
+                <div class="payment-method active" id="card-method">
+                    <div class="mb-3">
+                        <label class="form-label">Номер карты</label>
+                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Срок действия</label>
+                            <input type="text" class="form-control" placeholder="MM/ГГ">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">CVV/CVC</label>
+                            <input type="text" class="form-control" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Наличные -->
+                <div class="payment-method" id="cash-method">
+                    <div class="alert alert-info">
+                        Оплата производится наличными при подписании договора аренды
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-3">Подтвердить оплату</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем данные бронирования
+            const bookingData = JSON.parse(sessionStorage.getItem('bookingData'));
+            
+            if (!bookingData?.apartment || !bookingData?.client) {
+                alert('Данные бронирования не найдены!');
+                window.location.href = '/main/';
+                return;
+            }
+            
+            const { apartment, client } = bookingData;
+            
+            // Заполняем детали бронирования
+            document.getElementById('booking-details').innerHTML = `
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h5>${apartment.title}</h5>
+                        <p class="text-muted">${apartment.area} м² | ${apartment.rooms} комнаты | ${apartment.floor} этаж</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Клиент:</strong> ${client.name}</p>
+                        <p><strong>Телефон:</strong> ${client.phone}</p>
+                        <p><strong>Email:</strong> ${client.email}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Дата заезда:</strong> ${client.checkIn}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Дата выезда:</strong> ${client.checkOut}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('total-price').textContent = apartment.price;
+            
+            // Переключение методов оплаты
+            document.getElementById('paymentMethod').addEventListener('change', function() {
+                document.querySelectorAll('.payment-method').forEach(method => {
+                    method.classList.remove('active');
+                });
+                document.getElementById(`${this.value}-method`).classList.add('active');
+            });
+            
+            // Обработка формы оплаты
+            document.getElementById('paymentForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Здесь должна быть логика обработки оплаты
+                // После успешной оплаты:
+                alert('Оплата прошла успешно! Бронирование подтверждено.');
+                
+                // Очищаем данные сессии
+                sessionStorage.removeItem('bookingData');
+                
+                // Возвращаем на главную с параметром успешного бронирования
+                window.location.href = '/main/';
+            });
+        });
+    </script>
+</body>
+</html>

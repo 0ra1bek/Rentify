@@ -689,9 +689,13 @@
         }
         
         function showApartmentDetails(e, apartmentId) {
-            if (e) e.stopPropagation();
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             
-            const card = e ? e.target.closest('.apartment-card') : 
+            // Находим карточку квартиры
+            const card = e ? document.querySelector(`.apartment-card[data-id="${apartmentId}"]`) : 
                 document.querySelector(`.apartment-card[data-id="${apartmentId}"]`);
             
             if (!card) return;
@@ -702,7 +706,7 @@
             
             // Заполнение данных на странице деталей
             document.getElementById('detail-apartment-title').textContent = card.dataset.name;
-            document.getElementById('detail-apartment-price').textContent = card.querySelector('.card-price').textContent;
+            document.getElementById('detail-apartment-price').textContent = formatPrice(card.dataset.price);
             
             const paramsTable = document.getElementById('detail-params-table');
             paramsTable.innerHTML = `
@@ -736,15 +740,22 @@
             document.getElementById('apartment-detail-page').style.display = 'block';
         }
         
+        // Добавьте эту новую функцию для форматирования цены
+        function formatPrice(price) {
+            return parseInt(price).toLocaleString('ru-RU') + ' ₸';
+        }
+
         // Обработка кнопки "Назад" в браузере
         window.addEventListener('popstate', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const apartmentId = urlParams.get('id');
-            
-            if (!apartmentId) {
-                document.getElementById('apartments-page').style.display = 'block';
-                document.getElementById('apartment-detail-page').style.display = 'none';
-            }
+    
+        if (!apartmentId) {
+            document.getElementById('apartments-page').style.display = 'block';
+            document.getElementById('apartment-detail-page').style.display = 'none';
+        } else {
+            showApartmentDetails(null, apartmentId);
+        }
         });
 
         function bookApartment(button) {

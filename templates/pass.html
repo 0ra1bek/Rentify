@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -526,4 +527,543 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подать объявление | LOGO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4e54c8;
+            --secondary-color: #8f94fb;
+            --accent-color: #d9230f;
+            --bg-color: #f3f2ff;
+            --card-bg: #ffffff;
+            --text-color: #222;
+            --light-text: #666;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 15px 5%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .LOGO {
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            cursor: pointer;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .action-btn i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .action-btn span {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .main-container {
+            padding: 100px 5% 50px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .steps:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ddd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .step.active .step-number {
+            background: var(--primary-color);
+        }
+        
+        .step.completed .step-number {
+            background: var(--primary-color);
+        }
+        
+        .step.completed .step-number:after {
+            content: '✓';
+        }
+        
+        .step-label {
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        
+        .step.active .step-label {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .form-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .form-card h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .file-upload i {
+            font-size: 40px;
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+        
+        .file-upload p {
+            margin: 0;
+            color: var(--light-text);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background: #222;
+            color: white;
+            padding: 40px 5%;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .steps {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .steps:before {
+                display: none;
+            }
+            
+            .step {
+                flex: 1 0 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="LOGO">LOGO</div>
+        <div class="user-actions">
+            <a href="pass.html" class="action-btn">
+                <i class="fas fa-paper-plane"></i>
+                <span>Подать</span>
+            </a>
+            <a href="like.html" class="action-btn">
+                <i class="fas fa-heart"></i>
+                <span>Избранное</span>
+            </a>
+            <a href="profile.html" class="action-btn">
+                <i class="fas fa-user"></i>
+                <span>Профиль</span>
+            </a>
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <h1 class="page-title">Подать объявление</h1>
+        
+        <div class="steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Информация</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Фотографии</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Контакты</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Публикация</div>
+            </div>
+        </div>
+        
+        <form id="advertisement-form">
+             Шаг 1: Информация -->
+            <div class="form-card active" data-step="1">
+                <h2>Основная информация</h2>
+                
+                <div class="form-group">
+                    <label for="property-type">Тип недвижимости</label>
+                    <select id="property-type" required>
+                        <option value="">Выберите тип</option>
+                        <option value="apartment">Квартира</option>
+                        <option value="house">Дом</option>
+                        <option value="commercial">Коммерческая</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rooms">Количество комнат</label>
+                        <select id="rooms" required>
+                            <option value="">Выберите</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="area">Площадь (м²)</label>
+                        <input type="number" id="area" min="1" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Адрес</label>
+                    <input type="text" id="address" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Описание</label>
+                    <textarea id="description" placeholder="Опишите вашу недвижимость"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" disabled>Назад</button>
+                    <button type="button" class="btn btn-primary next-step">Далее</button>
+                </div>
+            </div>
+            
+             Шаг 2: Фотографии -->
+            <div class="form-card" data-step="2">
+                <h2>Фотографии</h2>
+                
+                <div class="form-group">
+                    <label>Загрузите фотографии (минимум 3)</label>
+                    <div class="file-upload">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Перетащите сюда файлы или нажмите для загрузки</p>
+                        <input type="file" multiple style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline prev-step">Назад</button>
+                    <button type="button" class="btn btn-primary next-step">Далее</button>
+                </div>
+            </div>
+            
+             Шаг 3: Контакты -->
+            <div class="form-card" data-step="3">
+                <h2>Контактная информация</h2>
+                
+                <div class="form-group">
+                    <label for="contact-name">Ваше имя</label>
+                    <input type="text" id="contact-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact-phone">Телефон</label>
+                    <input type="tel" id="contact-phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline prev-step">Назад</button>
+                    <button type="button" class="btn btn-primary next-step">Далее</button>
+                </div>
+            </div>
+            
+             Шаг 4: Публикация -->
+            <div class="form-card" data-step="4">
+                <h2>Проверьте информацию</h2>
+                
+                <div class="form-group">
+                    <h3>Основная информация</h3>
+                    <p id="review-type"></p>
+                    <p id="review-rooms"></p>
+                    <p id="review-area"></p>
+                    <p id="review-address"></p>
+                </div>
+                
+                <div class="form-group">
+                    <h3>Контактная информация</h3>
+                    <p id="review-contact-name"></p>
+                    <p id="review-contact-phone"></p>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline prev-step">Назад</button>
+                    <button type="submit" class="btn btn-primary">Опубликовать</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <footer>
+        <p>© 2025 LOGO. Все права защищены.</p>
+        <p>Контактный центр: +7 777 123 45 67</p>
+    </footer>
+    
+    <script>
+         Навигация по шагам
+        const steps = document.querySelectorAll('.step');
+        const formCards = document.querySelectorAll('.form-card');
+        
+        document.querySelectorAll('.next-step').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentCard = btn.closest('.form-card');
+                const currentStep = parseInt(currentCard.dataset.step);
+                
+                 Валидация формы перед переходом
+                if (validateStep(currentStep)) {
+                     Переходим к следующему шагу
+                    goToStep(currentStep + 1);
+                    
+                     Если это последний шаг, заполняем обзор
+                    if (currentStep === 3) {
+                        fillReview();
+                    }
+                }
+            });
+        });
+        
+        document.querySelectorAll('.prev-step').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentCard = btn.closest('.form-card');
+                const currentStep = parseInt(currentCard.dataset.step);
+                goToStep(currentStep - 1);
+            });
+        });
+        
+        function goToStep(stepNumber) {
+             Обновляем шаги
+            steps.forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum < stepNumber) {
+                    step.classList.add('completed');
+                } else if (stepNum === stepNumber) {
+                    step.classList.add('active');
+                }
+            });
+            
+             Показываем соответствующий шаг формы
+            formCards.forEach(card => {
+                card.classList.remove('active');
+                if (parseInt(card.dataset.step) === stepNumber) {
+                    card.classList.add('active');
+                }
+            });
+        }
+        
+        function validateStep(step) {
+             Простая валидация - проверяем, что обязательные поля заполнены
+            let isValid = true;
+            const currentCard = document.querySelector(`.form-card[data-step="${step}"]`);
+            
+            currentCard.querySelectorAll('[required]').forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'var(--accent-color)';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+            
+            if (!isValid) {
+                alert('Пожалуйста, заполните все обязательные поля');
+            }
+            
+            return isValid;
+        }
+        
+        function fillReview() {
+             Заполняем раздел "Проверьте информацию"
+            document.getElementById('review-type').textContent = `Тип: ${document.getElementById('property-type').options[document.getElementById('property-type').selectedIndex].text}`;
+            document.getElementById('review-rooms').textContent = `Комнат: ${document.getElementById('rooms').value}`;
+            document.getElementById('review-area').textContent = `Площадь: ${document.getElementById('area').value} м²`;
+            document.getElementById('review-address').textContent = `Адрес: ${document.getElementById('address').value}`;
+            document.getElementById('review-contact-name').textContent = `Имя: ${document.getElementById('contact-name').value}`;
+            document.getElementById('review-contact-phone').textContent = `Телефон: ${document.getElementById('contact-phone').value}`;
+        }
+        
+         Обработка отправки формы
+        document.getElementById('advertisement-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Ваше объявление успешно опубликовано!');
+             Здесь можно добавить AJAX-запрос для отправки данных на сервер
+        });
+        
+         Обработка загрузки файлов
+        document.querySelector('.file-upload').addEventListener('click', function() {
+            this.querySelector('input').click();
+        });
+        
+        document.querySelector('.file-upload input').addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const fileNames = Array.from(this.files).map(file => file.name).join(', ');
+                document.querySelector('.file-upload p').textContent = `Выбрано файлов: ${this.files.length}`;
+            }
+        });
+    </script>
+</body>
+>>>>>>> 5c41cd8 (Changes with API)
 </html>

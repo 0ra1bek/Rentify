@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -21,9 +20,3 @@ def register_view(request):
 
 def index(request):
     return render(request, 'reg/reg.html')
-=======
-from django.shortcuts import render
-
-def index(request):
-    return render(request ,'reg/reg.html')
->>>>>>> 5c41cd8 (Changes with API)

@@ -84,10 +84,15 @@ WSGI_APPLICATION = 'rentify.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rentify_db_Mysql',  
+        'USER': 'root',  
+        'PASSWORD': 'RenAidNur#2025', 
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
 
 
 # Password validation

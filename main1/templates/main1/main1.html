@@ -97,7 +97,7 @@
         .card-image {
             width: 100%;
             height: 220px;
-            object-fit: cover;
+            object-fit:center;
         }
         
         .card-content {
@@ -203,7 +203,6 @@
             font-weight: 500;
         }
         
-        /* Детали квартиры */
         .apartment-detail {
             background: var(--card-bg);
             border-radius: 12px;
@@ -328,6 +327,15 @@
     </style>
 </head>
 <body>
+    <form method="get" action="">
+        <select name="rooms">
+            <option value="">Все квартиры</option>
+            <option value="1">1-комнатные</option>
+            <option value="2">2-комнатные</option>
+        </select>
+        <button type="submit">Применить</button>
+    </form>
+
     <!-- Главная страница с выбором квартир -->
     <div id="apartments-page">
         <header>
@@ -360,126 +368,36 @@
                 
                 <select id="priceFilter">
                     <option value="">Любая цена</option>
-                    <option value="0-50">До 50 млн ₸</option>
-                    <option value="50-100">50-100 млн ₸</option>
-                    <option value="100+">От 100 млн ₸</option>
+                    <option value="0-50">До 100 000 ₸</option>
+                    <option value="50-100">100 000-200 000 ₸</option>
+                    <option value="100+">От 200 000 ₸</option>
                 </select>
             </div>
             
-            <div class="apartments-grid" id="apartmentList">
-                <!-- Квартира 1 -->
-                <div class="apartment-card" data-rooms="2" data-price="48100000" data-name="2-комнатная квартира" data-id="4d626173-34cb-80e5-a799-3ee4fd730027" data-floor="12" data-area="56">
-                    <div class="card-image-container">
-                        <img src="https://bazis-online.kz/crmc/rest/prices/getImage?imageId=567fa50e-4e24-a642-16eb-cf29daa66aef" class="card-image" alt="Квартира">
-                        <button class="favorite-btn">♥</button>
-                    </div>
+            <div class="apartments-grid">
+                {% for property in properties %}
+                    <div class="apartment-card" 
+                        data-rooms="{{ property.rooms }}" 
+                        data-price="{{ property.price }}"
+                        data-name="{{ property.title }}"
+                        data-id="{{ property.id }}"
+                        data-area="{{ property.area }}"
+                        data-floor="{{ property.floor }}">
+                    <img src="{{ property.image_url }}" class="card-image" alt="{{ property.title }}">
+                    <button class="favorite-btn">♥</button>
                     <div class="card-content">
-                        <h3 class="card-title">2-комнатная квартира</h3>
-                        <div class="card-area">Площадь: 56 м²</div>
-                        <div class="card-price">48 100 000 ₸</div>
                         <div class="card-footer">
-                            <div class="card-buttons">
-                                <button class="btn btn-outline" onclick="showApartmentDetails(event, '4d626173-34cb-80e5-a799-3ee4fd730027')">Подробнее</button>
-                                <button class="btn btn-primary" onclick="bookApartment(this)">Арендовать</button>
-                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Квартира 2 -->
-                <div class="apartment-card" data-rooms="2" data-price="47400000" data-name="2-комнатная квартира" data-id="1140dbd7-1598-d4c0-a036-c7cf6017b86c" data-floor="10" data-area="52">
-                    <div class="card-image-container">
-                        <img src="https://bazis-online.kz/crmc/rest/prices/getImage?imageId=1140dbd7-1598-d4c0-a036-c7cf6017b86c" class="card-image" alt="Квартира">
-                        <button class="favorite-btn">♥</button>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">2-комнатная квартира</h3>
-                        <div class="card-area">Площадь: 52 м²</div>
-                        <div class="card-price">47 400 000 ₸</div>
-                        <div class="card-footer">
-                            <div class="card-buttons">
-                                <button class="btn btn-outline" onclick="showApartmentDetails(event, '1140dbd7-1598-d4c0-a036-c7cf6017b86c')">Подробнее</button>
-                                <button class="btn btn-primary" onclick="bookApartment(this)">Арендовать</button>
+                        <h3 class="card-title">{{ property.title }}</h3>
+                        <div class="card-area">Площадь: {{ property.area }} м²</div>
+                        <div class="card-price">{{ property.price|floatformat:0 }} ₸</div>
+                        <div class="card-buttons">
+                                <button class="btn btn-outline">Подробнее</button>
+                                <button class="btn btn-primary">Арендовать</button>
                             </div>
-                        </div>
                     </div>
-                </div>
-                
-                <!-- Квартира 3 -->
-                <div class="apartment-card" data-rooms="3" data-price="130600000" data-name="3-комнатная квартира" data-id="1b0830b5-de54-7736-73cf-05bbef3312eb" data-floor="15" data-area="98">
-                    <div class="card-image-container">
-                        <img src="https://bazis-online.kz/crmc/rest/prices/getImage?imageId=1b0830b5-de54-7736-73cf-05bbef3312eb" class="card-image" alt="Квартира">
-                        <button class="favorite-btn">♥</button>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">3-комнатная квартира</h3>
-                        <div class="card-area">Площадь: 98 м²</div>
-                        <div class="card-price">130 600 000 ₸</div>
-                        <div class="card-footer">
-                            <div class="card-buttons">
-                                <button class="btn btn-outline" onclick="showApartmentDetails(event, '1b0830b5-de54-7736-73cf-05bbef3312eb')">Подробнее</button>
-                                <button class="btn btn-primary" onclick="bookApartment(this)">Арендовать</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Квартира 4 -->
-                <div class="apartment-card" data-rooms="1" data-price="29000000" data-name="1-комнатная квартира" data-id="668889ce-77ad-507f-f591-ab4220004e17" data-floor="8" data-area="38">
-                    <div class="card-image-container">
-                        <img src="https://bazis-online.kz/crmc/rest/prices/getImage?imageId=668889ce-77ad-507f-f591-ab4220004e17" class="card-image" alt="Квартира">
-                        <button class="favorite-btn">♥</button>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">1-комнатная квартира</h3>
-                        <div class="card-area">Площадь: 38 м²</div>
-                        <div class="card-price">29 000 000 ₸</div>
-                        <div class="card-footer">
-                            <div class="card-buttons">
-                                <button class="btn btn-outline" onclick="showApartmentDetails(event, '668889ce-77ad-507f-f591-ab4220004e17')">Подробнее</button>
-                                <button class="btn btn-primary" onclick="bookApartment(this)">Арендовать</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Квартира 5 -->
-                <div class="apartment-card" data-rooms="1" data-price="29000000" data-name="1-комнатная квартира" data-id="ec366cda-8333-0265-7c9b-f6a49f5befc6" data-floor="7" data-area="36">
-                    <div class="card-image-container">
-                        <img src="https://bazis-online.kz/crmc/rest/prices/getImage?imageId=ec366cda-8333-0265-7c9b-f6a49f5befc6" class="card-image" alt="Квартира">
-                        <button class="favorite-btn">♥</button>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">1-комнатная квартира</h3>
-                        <div class="card-area">Площадь: 36 м²</div>
-                        <div class="card-price">29 000 000 ₸</div>
-                        <div class="card-footer">
-                            <div class="card-buttons">
-                                <button class="btn btn-outline" onclick="showApartmentDetails(event, 'ec366cda-8333-0265-7c9b-f6a49f5befc6')">Подробнее</button>
-                                <button class="btn btn-primary" onclick="bookApartment(this)">Арендовать</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Квартира 6 -->
-                <div class="apartment-card" data-rooms="4" data-price="146800000" data-name="4-комнатная квартира" data-id="2882630e-1d6d-e94f-c164-f6d848c35e58" data-floor="18" data-area="120">
-                    <div class="card-image-container">
-                        <img src="https://bazis-online.kz/crmc/rest/prices/getImage?imageId=2882630e-1d6d-e94f-c164-f6d848c35e58" class="card-image" alt="Квартира">
-                        <button class="favorite-btn">♥</button>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">4-комнатная квартира</h3>
-                        <div class="card-area">Площадь: 120 м²</div>
-                        <div class="card-price">146 800 000 ₸</div>
-                        <div class="card-footer">
-                            <div class="card-buttons">
-                                <button class="btn btn-outline" onclick="showApartmentDetails(event, '2882630e-1d6d-e94f-c164-f6d848c35e58')">Подробнее</button>
-                                <button class="btn btn-primary" onclick="bookApartment(this)">Арендовать</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -487,17 +405,17 @@
     <!-- Страница деталей квартиры (изначально скрыта) -->
     <div id="apartment-detail-page" style="display: none;">
         <header>
-            <div class="LOGO"><a href="/main1/" style="text-decoration: none; color: inherit;">LOGO</a></div>
+            <div class="LOGO">LOGO</div>
             <div class="user-actions">
-                <a href="/pass/" class="action-btn">
+                <a href="pass.html" class="action-btn">
                     <i class="fas fa-paper-plane"></i>
                     <span>Подать</span>
                 </a>
-                <a href="/like/" class="action-btn">
+                <a href="like.html" class="action-btn">
                     <i class="fas fa-heart"></i>
                     <span>Избранное</span>
                 </a>
-                <a href="/profile/" class="action-btn">
+                <a href="profile.html" class="action-btn">
                     <i class="fas fa-user"></i>
                     <span>Профиль</span>
                 </a>
@@ -574,7 +492,7 @@
                                     <li class="mb-2">• Детский сад на территории</li>
                                     <li class="mb-2">• Фитнес-центр</li>
                                 </ul>
-                                <a href="https://bazis.kz/" class="btn btn-outline-primary w-100" target="_blank">Подробнее о ЖК</a>
+                                <a href="#" class="btn btn-outline-primary w-100">Подробнее о ЖК</a>
                             </div>
                         </div>
                     </div>
@@ -588,33 +506,33 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <a href="index.html"><img src="" alt="LOGO" class="mb-3" height="40"></a>
+                    <img src="https://bazis.kz/static/img/LOGO-white.svg" alt="LOGO" class="mb-3" height="40">
                     <p>Аренда квартир в новостройках Алматы и не только.</p>
                 </div>
                 <div class="col-md-2 mb-4">
                     <h5>Компания</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="about.html" class="text-white text-decoration-none">О компании</a></li>
-                        <li class="mb-2"><a href="news.html" class="text-white text-decoration-none">Новости</a></li>
-                        <li class="mb-2"><a href="career.html" class="text-white text-decoration-none">Карьера</a></li>
-                        <li class="mb-2"><a href="contacts.html" class="text-white text-decoration-none">Контакты</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">О компании</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Новости</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none"></a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Контакты</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
                     <h5>Покупателям</h5>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="catalog.html" class="text-white text-decoration-none">Каталог</a></li>
-                        <li class="mb-2"><a href="promotions.html" class="text-white text-decoration-none">Акции</a></li>
-                        <li class="mb-2"><a href="mortgage.html" class="text-white text-decoration-none">Ипотека</a></li>
-                        <li class="mb-2"><a href="terms.html" class="text-white text-decoration-none">Условия покупки</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Каталог</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Акции</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none"></a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Условия покупки</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
                     <h5>Контакты</h5>
                     <ul class="list-unstyled">
                         <li class="mb-2">г. Алматы, ул. Назарбаева 123</li>
-                        <li class="mb-2"><a href="tel:+77771234567" class="text-white text-decoration-none">+7 777 123 45 67</a></li>
-                        <li class="mb-2"><a href="mailto:info@LOGO.kz" class="text-white text-decoration-none">info@LOGO.kz</a></li>
+                        <li class="mb-2">+7 777 123 45 67</li>
+                        <li class="mb-2">info@LOGO.kz</li>
                         <li class="mb-2">Пн-Пт: 9:00 - 18:00</li>
                     </ul>
                 </div>
@@ -625,8 +543,8 @@
                     <p class="mb-0">© 2025 ТОО «Лого Девелопмент». Все права защищены.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="privacy.html" class="text-white me-3">Политика конфиденциальности</a>
-                    <a href="terms.html" class="text-white">Пользовательское соглашение</a>
+                    <a href="#" class="text-white me-3">Политика конфиденциальности</a>
+                    <a href="#" class="text-white">Пользовательское соглашение</a>
                 </div>
             </div>
         </div>
@@ -639,17 +557,6 @@
         let swiper = null;
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Проверяем, есть ли параметр ID в URL для автоматического показа деталей
-            const urlParams = new URLSearchParams(window.location.search);
-            const apartmentId = urlParams.get('id');
-            
-            if (apartmentId) {
-                const card = document.querySelector(`.apartment-card[data-id="${apartmentId}"]`);
-                if (card) {
-                    showApartmentDetails(null, apartmentId);
-                }
-            }
-            
             // Обработка избранного
             document.querySelectorAll('.favorite-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -663,6 +570,16 @@
             // Фильтрация квартир
             document.getElementById('roomFilter').addEventListener('change', filterApartments);
             document.getElementById('priceFilter').addEventListener('change', filterApartments);
+            
+            // Обработка кнопки "Подробнее"
+            document.querySelectorAll('.btn-outline').forEach(btn => {
+                btn.addEventListener('click', showApartmentDetails);
+            });
+            
+            // Обработка кнопки "Арендовать"
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.addEventListener('click', startBookingProcess);
+            });
         });
         
         function filterApartments() {
@@ -688,25 +605,13 @@
             });
         }
         
-        function showApartmentDetails(e, apartmentId) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-            
-            // Находим карточку квартиры
-            const card = e ? document.querySelector(`.apartment-card[data-id="${apartmentId}"]`) : 
-                document.querySelector(`.apartment-card[data-id="${apartmentId}"]`);
-            
-            if (!card) return;
-            
-            // Обновляем URL без перезагрузки страницы
-            const newUrl = `${window.location.pathname}?id=${card.dataset.id}`;
-            window.history.pushState({ path: newUrl }, '', newUrl);
+        function showApartmentDetails(e) {
+            e.stopPropagation();
+            const card = e.target.closest('.apartment-card');
             
             // Заполнение данных на странице деталей
             document.getElementById('detail-apartment-title').textContent = card.dataset.name;
-            document.getElementById('detail-apartment-price').textContent = formatPrice(card.dataset.price);
+            document.getElementById('detail-apartment-price').textContent = card.querySelector('.card-price').textContent;
             
             const paramsTable = document.getElementById('detail-params-table');
             paramsTable.innerHTML = `
@@ -740,48 +645,30 @@
             document.getElementById('apartment-detail-page').style.display = 'block';
         }
         
-        // Добавьте эту новую функцию для форматирования цены
-        function formatPrice(price) {
-            return parseInt(price).toLocaleString('ru-RU') + ' ₸';
-        }
-
-        // Обработка кнопки "Назад" в браузере
-        window.addEventListener('popstate', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const apartmentId = urlParams.get('id');
-    
-        if (!apartmentId) {
-            document.getElementById('apartments-page').style.display = 'block';
-            document.getElementById('apartment-detail-page').style.display = 'none';
-        } else {
-            showApartmentDetails(null, apartmentId);
-        }
-        });
-
-        function bookApartment(button) {
-            const card = button.closest('.apartment-card');
+        function startBookingProcess(e) {
+            e.stopPropagation();
+            const card = e.target.closest('.apartment-card');
             
-            const apartment = {
+            // Собираем данные о квартире
+            const apartmentData = {
                 id: card.dataset.id,
                 title: card.dataset.name,
                 price: card.querySelector('.card-price').textContent,
-                image: card.querySelector('.card-image').src,
                 area: card.dataset.area,
                 rooms: card.dataset.rooms,
-                floor: card.dataset.floor
-            };
-            
-            const bookingData = {
-                apartment: apartment
+                floor: card.dataset.floor,
+                image: card.querySelector('.card-image').src
             };
             
             // Сохраняем данные в sessionStorage
-            sessionStorage.setItem('bookingData', JSON.stringify(bookingData));
+            sessionStorage.setItem('bookingData', JSON.stringify({
+                apartment: apartmentData,
+                timestamp: new Date().getTime()
+            }));
             
             // Переходим на страницу бронирования
-            window.location.href = '/booking/';}
-
-            
+            window.location.href = '/booking/';
+        }
     </script>
 </body>
 </html>

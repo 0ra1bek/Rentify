@@ -4,13 +4,14 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')), 
-    path('main1/', include('main1.urls')),
-    path('auth/', include('aauth.urls')),
+    path('', include('face.urls')), 
+    path('main/', include('main.urls')),
+    path('auth/', include('auth1.urls')),
     path('reg/', include('reg.urls')),  
     path('booking/', include('booking.urls')),
     path('payment/', include('payment.urls')),
-    path('pprofile/', include('pprofile.urls')),
+    path('profile/', include('profile.urls')),
     path('pass/', include('pass.urls')),
-    path('like/', include('like.urls')),
+    path('favorites/', include('favorites.urls')),
 ]
+

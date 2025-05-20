@@ -139,7 +139,7 @@
             
             if (!bookingData?.apartment || !bookingData?.client) {
                 alert('Данные бронирования не найдены!');
-                window.location.href = '/main1/';
+                window.location.href = '/main/';
                 return;
             }
             
@@ -159,13 +159,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Дата заезда:</strong> ${client.checkIn}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Дата выезда:</strong> ${client.checkOut}</p>
-                    </div>
-                </div>
             `;
             
             document.getElementById('total-price').textContent = apartment.price;
@@ -182,15 +175,11 @@
             document.getElementById('paymentForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                // Здесь должна быть логика обработки оплаты
-                // После успешной оплаты:
-                alert('Оплата прошла успешно! Бронирование подтверждено.');
-                
                 // Очищаем данные сессии
                 sessionStorage.removeItem('bookingData');
                 
                 // Возвращаем на главную с параметром успешного бронирования
-                window.location.href = '/main1/';
+                window.location.href = '/payment/success/';
             });
         });
     </script>
